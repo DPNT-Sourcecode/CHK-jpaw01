@@ -1,4 +1,5 @@
 import unittest
+from typing import List
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -8,12 +9,32 @@ prices = {
     "B": 30,
     "C": 20,
     "D": 15,
+    "E": 40,
 }
 
 offers = {
-    "A": [(3, 130)],
-    "B": [(2, 45)]
+    "A": [(3, 130), (5, 200)],
+    "B": [(2, 45)],
 }
+
+free_items_offer = {
+    "E": [(2, "B")]
+}
+
+
+def remove_free_items(skus: List[str]) -> List[str]:
+    free_items = []
+    for free_item in free_items_offer.keys():
+        if free_item in skus:
+            c = skus.count(free_item)
+            free_item_threshold = free_items_offer[free_item][0]
+            free_item_qty = c // free_item_threshold
+            free_items.extend([free_items_offer[free_item][1]] * free_item_qty)
+
+    free_items = sorted(free_items)
+    for fi in free_items:
+        if fi in skus:
+            skus.index(fi)
 
 
 def checkout(skus):
@@ -89,5 +110,6 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
