@@ -50,10 +50,22 @@ def checkout(skus):
                 total += item_count * prices[last_item]
             else:
                 total += item_count * prices[last_item]
+                item_count = 0
 
             item_count = 1
             last_item = item
         idx += 1
+
+    if last_item in offers:
+        offer_count = offers[last_item][0][0]
+        offer_price = offers[last_item][0][1]
+
+        while item_count >= offer_count:
+            total += offer_price
+            item_count -= offer_count
+        total += item_count * prices[last_item]
+    else:
+        total += item_count * prices[last_item]
 
     return total
 
@@ -62,7 +74,11 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
-            {"input": "AAB", "expected_output": 130},
+            {"input": "AAAAAAA", "expected_output": 310},
+            {"input": "AAABB", "expected_output": 175},
+            {"input": "AAA", "expected_output": 130},
+            {"input": "A,a,B", "expected_output": 130},
+            {"input": "A,a,x", "expected_output": -1},
         ]
         for test_case in test_cases:
             inp = test_case["input"]
@@ -74,3 +90,4 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
