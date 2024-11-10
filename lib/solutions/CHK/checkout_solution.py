@@ -11,12 +11,8 @@ prices = {
 }
 
 offers = {
-    "A": {
-        3: 130
-    },
-    "B": {
-        2: 45
-    }
+    "A": [(3, 130)],
+    "B": [(2, 45)]
 }
 
 
@@ -28,23 +24,45 @@ def checkout(skus):
         items = list(skus)
 
     items = sorted([c.capitalize() for c in items])
+    if len(items) == 0:
+        return 0
 
     total = 0
-    item = ""
+    last_item = items[0]
     item_count = 0
+    idx = 0
 
-    for item in items:
-        if item not in 
+    while idx < len(items):
+        item = items[idx]
+        if item not in prices:
+            return -1
 
+        if last_item == item:
+            item_count += 1
+        else:
+            if last_item in offers:
+                offer_count = offers[last_item][0][0]
+                offer_price = offers[last_item][0][1]
 
+                while item_count >= offer_count:
+                    total += offer_price
+                    item_count -= offer_count
+                total += item_count * prices[last_item]
+            else:
+                total += item_count * prices[last_item]
 
+            item_count = 1
+            last_item = item
+        idx += 1
+
+    return total
 
 
 class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
-            {"input": "AAB", "expected_output": -1},
+            {"input": "AAB", "expected_output": 130},
         ]
         for test_case in test_cases:
             inp = test_case["input"]
@@ -56,5 +74,3 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
