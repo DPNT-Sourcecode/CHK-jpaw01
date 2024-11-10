@@ -102,7 +102,8 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
-            {"input": "BEEAAA", "expected_output": 330},
+            {"input": "EEBEEB", "expected_output": 160},
+            {"input": "BEEAAA", "expected_output": 210},
             {"input": "AAAAAAAA", "expected_output": 330},
             {"input": "EEB", "expected_output": 80},
             {"input": "AAAAAAA", "expected_output": 300},
@@ -120,4 +121,5 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
