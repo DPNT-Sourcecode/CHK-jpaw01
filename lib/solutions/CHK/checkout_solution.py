@@ -20,7 +20,7 @@ offers = {
 
 free_items_offer = {
     "E": [(2, "B")],
-    "F": [(2, "F")]
+    "F": [(3, "F")]
 }
 
 
@@ -104,6 +104,7 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "FF", "expected_output": 20},
             {"input": "FFFAAA", "expected_output": 150},
             {"input": "FFF", "expected_output": 20},
             {"input": "EEBEEB", "expected_output": 160},
@@ -125,6 +126,7 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 
