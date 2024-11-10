@@ -16,7 +16,7 @@ prices = {
     "H": 10,
     "I": 35,
     "J": 60,
-    "K": 80,
+    "K": 70,
     "L": 90,
     "M": 15,
     "N": 40,
@@ -24,21 +24,21 @@ prices = {
     "P": 50,
     "Q": 30,
     "R": 50,
-    "S": 30,
+    "S": 20,
     "T": 20,
     "U": 40,
     "V": 50,
     "W": 20,
-    "X": 90,
-    "Y": 10,
-    "Z": 50,
+    "X": 17,
+    "Y": 20,
+    "Z": 21,
 }
 
 offers = {
     "A": [(5, 200), (3, 130)],
     "B": [(2, 45)],
-    "K": [(2, 150)],
     "H": [(10, 80), (5, 45)],
+    "K": [(2, 120)],
     "P": [(5, 200)],
     "Q": [(3, 80)],
     "V": [(3, 130), (2, 90)],
@@ -51,6 +51,17 @@ free_items_offer = {
     "R": [(3, "Q")],
     "U": [(4, "U")],
 }
+
+group_discount = ["Z", "S", "T", "Y", "X"]
+
+
+def apply_special_offer(skus: List[str]) -> List[str]:
+    spl_offer_count = 0
+    spl_items = []
+    for i in group_discount:
+        if i in skus:
+            spl_items.extend([i] * skus.count(i))
+            
 
 
 def remove_free_items(skus: List[str]) -> List[str]:
@@ -128,9 +139,6 @@ def checkout(skus):
 
     return total
 
- # - {"method":"checkout","params":["HHHHHHHHHH"],"id":"CHK_R4_084"}, expected: 80, got: 90
- # - {"method":"checkout","params":["HHHHHHHHHHH"],"id":"CHK_R4_085"}, expected: 90, got: 100
- # - {"method":"checkout","params":["HHHHHHHHHHHH"],"id":"CHK_R4_086"}, expected: 100, got: 110
 
 class TestSolution(unittest.TestCase):
 
@@ -161,3 +169,4 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
