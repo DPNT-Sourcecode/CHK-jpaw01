@@ -32,6 +32,7 @@ prices = {
     "X": 17,
     "Y": 20,
     "Z": 21,
+    "disc": 45,
 }
 
 offers = {
@@ -56,12 +57,19 @@ group_discount = ["Z", "S", "T", "Y", "X"]
 
 
 def apply_special_offer(skus: List[str]) -> List[str]:
-    spl_offer_count = 0
     spl_items = []
     for i in group_discount:
         if i in skus:
             spl_items.extend([i] * skus.count(i))
-            
+            skus = [x for x in skus if x != i]
+
+    discount_times = len(spl_items) // 3
+    for i in range(discount_times):
+        spl_items = spl_items[3:]
+
+    skus.extend(spl_items)
+    skus.extend(["disc"] * discount_times)
+    return sorted(skus)
 
 
 def remove_free_items(skus: List[str]) -> List[str]:
@@ -94,6 +102,7 @@ def checkout(skus):
         return 0
 
     items = remove_free_items(items)
+    items = apply_special_offer(items)
 
     total = 0
     last_item = items[0]
@@ -144,6 +153,7 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "STX", "expected_output": 45},
             {"input": "HHHHHHHHHH", "expected_output": 80},
             {"input": "HHHHHHHHHHH", "expected_output": 90},
             {"input": "HHHHHHHHHHHH", "expected_output": 100},
@@ -169,4 +179,5 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
