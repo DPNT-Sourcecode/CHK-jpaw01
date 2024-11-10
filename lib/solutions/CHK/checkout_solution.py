@@ -38,7 +38,7 @@ offers = {
     "A": [(5, 200), (3, 130)],
     "B": [(2, 45)],
     "K": [(2, 150)],
-    "H": [(5, 45), (10, 80)],
+    "H": [(10, 80), (5, 45)],
     "P": [(5, 200)],
     "Q": [(3, 80)],
     "V": [(3, 130), (2, 90)],
@@ -128,11 +128,17 @@ def checkout(skus):
 
     return total
 
+ # - {"method":"checkout","params":["HHHHHHHHHH"],"id":"CHK_R4_084"}, expected: 80, got: 90
+ # - {"method":"checkout","params":["HHHHHHHHHHH"],"id":"CHK_R4_085"}, expected: 90, got: 100
+ # - {"method":"checkout","params":["HHHHHHHHHHHH"],"id":"CHK_R4_086"}, expected: 100, got: 110
 
 class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "HHHHHHHHHH", "expected_output": 80},
+            {"input": "HHHHHHHHHHH", "expected_output": 90},
+            {"input": "HHHHHHHHHHHH", "expected_output": 100},
             {"input": "FF", "expected_output": 20},
             {"input": "FFFAAA", "expected_output": 150},
             {"input": "FFF", "expected_output": 20},
@@ -155,4 +161,5 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
