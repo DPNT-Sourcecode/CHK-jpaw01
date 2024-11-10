@@ -23,7 +23,7 @@ def checkout(skus):
     else:
         items = list(skus)
 
-    items = sorted([c.capitalize() for c in items])
+    items = sorted(items)
     if len(items) == 0:
         return 0
 
@@ -77,8 +77,7 @@ class TestSolution(unittest.TestCase):
             {"input": "AAAAAAA", "expected_output": 310},
             {"input": "AAABB", "expected_output": 175},
             {"input": "AAA", "expected_output": 130},
-            {"input": "A,a,B", "expected_output": 130},
-            {"input": "A,a,x", "expected_output": -1},
+            {"input": "ABCa", "expected_output": -1},
         ]
         for test_case in test_cases:
             inp = test_case["input"]
@@ -90,4 +89,5 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
