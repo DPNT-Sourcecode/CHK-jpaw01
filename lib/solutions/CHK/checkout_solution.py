@@ -13,7 +13,7 @@ prices = {
 }
 
 offers = {
-    "A": [(3, 130), (5, 200)],
+    "A": [(5, 200), (3, 130)],
     "B": [(2, 45)],
 }
 
@@ -67,12 +67,13 @@ def checkout(skus):
             item_count += 1
         else:
             if last_item in offers:
-                offer_count = offers[last_item][0][0]
-                offer_price = offers[last_item][0][1]
-
-                while item_count >= offer_count:
-                    total += offer_price
-                    item_count -= offer_count
+                offer_counts = offers[last_item]
+                for oc in offer_counts:
+                    offer_count = oc[0]
+                    offer_price = oc[1]
+                    while item_count >= offer_count:
+                        total += offer_price
+                        item_count -= offer_count
                 total += item_count * prices[last_item]
             else:
                 total += item_count * prices[last_item]
@@ -83,12 +84,13 @@ def checkout(skus):
         idx += 1
 
     if last_item in offers:
-        offer_count = offers[last_item][0][0]
-        offer_price = offers[last_item][0][1]
-
-        while item_count >= offer_count:
-            total += offer_price
-            item_count -= offer_count
+        offer_counts = offers[last_item]
+        for oc in offer_counts:
+            offer_count = oc[0]
+            offer_price = oc[1]
+            while item_count >= offer_count:
+                total += offer_price
+                item_count -= offer_count
         total += item_count * prices[last_item]
     else:
         total += item_count * prices[last_item]
@@ -100,8 +102,10 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "BEEAAA", "expected_output": 330},
+            {"input": "AAAAAAAA", "expected_output": 330},
             {"input": "EEB", "expected_output": 80},
-            {"input": "AAAAAAA", "expected_output": 310},
+            {"input": "AAAAAAA", "expected_output": 300},
             {"input": "AAABB", "expected_output": 175},
             {"input": "AAA", "expected_output": 130},
             {"input": "ABCa", "expected_output": -1},
@@ -116,3 +120,4 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
