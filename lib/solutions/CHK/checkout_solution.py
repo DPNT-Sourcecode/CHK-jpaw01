@@ -10,6 +10,7 @@ prices = {
     "C": 20,
     "D": 15,
     "E": 40,
+    "F": 10,
 }
 
 offers = {
@@ -18,7 +19,8 @@ offers = {
 }
 
 free_items_offer = {
-    "E": [(2, "B")]
+    "E": [(2, "B")],
+    "F": [(2, "F")]
 }
 
 
@@ -102,6 +104,7 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "FFF", "expected_output": 20},
             {"input": "EEBEEB", "expected_output": 160},
             {"input": "BEEAAA", "expected_output": 210},
             {"input": "AAAAAAAA", "expected_output": 330},
@@ -121,5 +124,6 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
