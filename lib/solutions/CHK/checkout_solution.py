@@ -27,7 +27,17 @@ def checkout(skus):
     else:
         items = list(skus)
 
-    items = [c for c in items]
+    items = sorted([c.capitalize() for c in items])
+
+    total = 0
+    item = ""
+    item_count = 0
+
+    for item in items:
+        if item not in 
+
+
+
 
 
 class TestSolution(unittest.TestCase):
@@ -46,4 +56,5 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
 
