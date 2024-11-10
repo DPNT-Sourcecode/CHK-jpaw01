@@ -27,14 +27,17 @@ def remove_free_items(skus: List[str]) -> List[str]:
     for free_item in free_items_offer.keys():
         if free_item in skus:
             c = skus.count(free_item)
-            free_item_threshold = free_items_offer[free_item][0]
+            free_item_threshold = free_items_offer[free_item][0][0]
             free_item_qty = c // free_item_threshold
-            free_items.extend([free_items_offer[free_item][1]] * free_item_qty)
+            free_items.extend([free_items_offer[free_item][0][1]] * free_item_qty)
 
     free_items = sorted(free_items)
     for fi in free_items:
         if fi in skus:
-            skus.index(fi)
+            i = skus.index(fi)
+            skus[i] = ""
+
+    return sorted([x for x in skus if x != ""])
 
 
 def checkout(skus):
@@ -47,6 +50,8 @@ def checkout(skus):
     items = sorted(items)
     if len(items) == 0:
         return 0
+
+    items = remove_free_items(items)
 
     total = 0
     last_item = items[0]
@@ -95,6 +100,7 @@ class TestSolution(unittest.TestCase):
 
     def test_1(self):
         test_cases = [
+            {"input": "EEB", "expected_output": 80},
             {"input": "AAAAAAA", "expected_output": 310},
             {"input": "AAABB", "expected_output": 175},
             {"input": "AAA", "expected_output": 130},
@@ -110,6 +116,3 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
